@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Calculator</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
 </head>
 <script type="text/javascript">
 
@@ -102,9 +103,14 @@
         } else if (el.innerHTML == '=') {
             //运算
             run.innerHTML = eval(run.innerHTML);
+
         } else {
             run.innerHTML += el.innerHTML;
+//            run.innerHTML += "<a href='#'>lalalal</a><br>";
         }
-    }
+    };
+    $(".bt").click(function(){
+        $(".c6").toggle(1000);
+    })
 </script>
 </html>
