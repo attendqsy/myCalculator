@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>img</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/lrz.bundle.js"></script>
+</head>
+<body>
+<ol class="add_photo">
+    <li id="add_photo" class="disbox-center add_icon" onclick="toUpload()" style="width: 100px;height: 100px;background: pink;">+</li>
+    <li><a href="./index.php?i=2&c=entry&id=59875&do=mythumb&m=jy_ppp"><img
+            src="http://yueai.ve86.cn/attachment/images/2/2017/03/k3MMbhBTjjJoBKJk7J0TM7jKJD7wJd.jpeg" class="img_my"></a></li>
+</ol>
+<input id="file" type="file" accept="image/*" class="hidden"/>
+</body>
+<script>
+    function toUpload() {
+        $("#file").click();
+    }
+    // 图片上传
+    $(function () {
+// 监测点击更换图片事件
+        $("#file").on("change", function (evt) {
+
+            lrz(this.files[0], {width: 720})
+                    .then(function (rst) {
+// 把处理的好的图片给用户看看呗
+                        var img = new Image();
+                        img.src = rst.base64;
+                        console.log(img.src);
+//                        $('.img_my').attr('src',img.src);
+                        var li = $("<li></li>").append('<a href="#"><img src="' + img.src + '">').append('</a>');
+                        $(".add_photo").after(li);
+                        return rst;
+                    })
+                    .then(function (rst) {
+                        $("#form").submit();
+                        return rst;
+                    })
+                    .catch(function (err) {
+                        alert(err);
+                    })
+                    .always(function () {
+                    });
+        });
+    });
+    function iframecallback(res, href) {
+        var li = $("<li></li>").append('<a href="' + href + '"><img src="' + res + '">').append('</a>');
+        $(".add_photo").after(li)
+    }
+</script>
+</html>
